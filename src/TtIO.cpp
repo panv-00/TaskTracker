@@ -55,6 +55,7 @@ char TtIO::read_char(const char *prompt)
 int  TtIO::read_number(const char *prompt)
 {
   read_any(prompt, true);
+  io_line.clean();
 
   return io_line.to_number();
 }
