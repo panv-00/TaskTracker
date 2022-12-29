@@ -16,11 +16,12 @@ int main(int argc, char** argv)
   printf("Testing TtIO!\n\n");
 
   TtIO io(24);
-  int c;
 
-  c = io.read_number("Input a number character..\n\r\x1b[2C");
+  io.read_string("Input a String..\n\r\x1b[2C");
 
-  printf("\n\n You Selected the lucky number: %10d\n", c);
+  printf("\n\nYou Selected the lucky text: \n");
+  io.echo();
+  printf("\n");
 
   return 0;
 }

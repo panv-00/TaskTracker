@@ -59,6 +59,11 @@ int  TtIO::read_number(const char *prompt)
 
   return io_line.to_number();
 }
+
+void TtIO::read_string(const char *prompt)
+{
+  read_any(prompt, false);
+}
   
 void TtIO::echo()
 {
