@@ -11,7 +11,7 @@ OBJECTS=     \
 	TtIO.o     \
 
 DEPLIST= \
-	includes.h \
+	TtInclude.h \
 
 default: $(OBJECTS)
 	$(CPP) -o ../TaskTracker ../src/TaskTracker.cpp \
