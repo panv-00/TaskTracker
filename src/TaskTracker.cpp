@@ -8,23 +8,19 @@
 #include "TtString.h"
 #include "TtTime.h"
 #include "TtDate.h"
+#include "TtIO.h"
 
 int main(int argc, char** argv)
 {
-  TtTime t1;
-  t1.echo();printf("\n");
+  clrscr();
+  printf("Testing TtIO!\n\n");
 
-  TtString timestring(t1);
-  timestring.dump();
+  TtIO io(24);
+  int c;
 
-  TtDate d1;
-  d1.echo();printf("\n");
+  c = io.read_char("Input only one character..");
 
-  d1.set_month(3);
-  d1.echo();printf("\n");
-
-  TtString datestring(d1);
-  datestring.dump();
+  printf("\nYou gave : '%c'.\n", c);
 
   return 0;
 }

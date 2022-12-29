@@ -8,6 +8,7 @@ OBJECTS=     \
 	TtString.o \
 	TtTime.o   \
 	TtDate.o   \
+	TtIO.o     \
 
 DEPLIST= \
 	includes.h \
