@@ -53,6 +53,56 @@ TtString::TtString(int num)
   string[length] = '\0';
 }
 
+TtString::TtString(TtTime t)
+{
+  length = 7;
+  string = new char[length + 1];
+
+  if (!t.is_valid())
+  {
+    string[0] = 'X';
+    string[1] = 'X';
+    string[2] = ' ';
+    string[3] = ':';
+    string[4] = ' ';
+    string[5] = 'X';
+    string[6] = 'X';
+  }
+
+  else
+  {
+    if (t.get_hour() > 9)
+    {
+      string[0] = (char) ((t.get_hour() / 10) + '0');
+      string[1] = (char) ((t.get_hour() % 10) + '0');
+    }
+
+    else
+    {
+      string[0] = '0';
+      string[1] = (char) (t.get_hour() + '0');
+    }
+
+    string[2] = ' ';
+    string[3] = ':';
+    string[4] = ' ';
+
+    if (t.get_minute() > 9)
+    {
+      string[5] = (char) ((t.get_minute() / 10) + '0');
+      string[6] = (char) ((t.get_minute() % 10) + '0');
+    }
+
+    else
+    {
+      string[5] = '0';
+      string[6] = (char) (t.get_minute() + '0');
+    }
+  }
+
+  string[length] = '\0';
+}
+
 TtString::TtString(const char *s)
 {
   length = 0;

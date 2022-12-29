@@ -6,9 +6,15 @@
  */
 
 #include "TtString.h"
+#include "TtTime.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
+  TtTime t1;
+  t1.echo();printf("\n");
 
+  TtString timestring(t1);
+  timestring.dump();
 
   return 0;
 }

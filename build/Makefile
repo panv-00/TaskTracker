@@ -6,6 +6,7 @@ VPATH=../src
 
 OBJECTS= \
 	TtString.o \
+	TtTime.o \
 
 DEPLIST= \
 	includes.h \

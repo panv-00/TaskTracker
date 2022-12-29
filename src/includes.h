@@ -9,6 +9,7 @@
 #define INCLUDES_H
 
 #include <stdio.h>
+#include <time.h>
 
 #define BUFFSIZE 1000
 

@@ -10,6 +10,7 @@
 #define TTSTRING_H
 
 #include "includes.h"
+#include "TtTime.h"
 
 class TtString
 {
@@ -17,6 +18,7 @@ public:
   TtString();
   TtString(char c);
   TtString(int num);
+  TtString(TtTime t);
   TtString(const char *s);
   TtString(const TtString &tts);
   ~TtString();
