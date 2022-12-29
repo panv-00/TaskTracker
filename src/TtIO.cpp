@@ -73,21 +73,6 @@ void TtIO::echo()
   if (cursor_position > 0) { move_right(cursor_position); }
 }
 
-void TtIO::debug(bool start_debug)
-{
-  if (start_debug)
-  {
-    save_position();
-    move_down(4);
-    printf("\r");
-  }
-
-  else
-  {
-    restore_position();
-  }
-}
-
 /*
  * Private Functions
  */
