@@ -7,6 +7,7 @@
 
 #include "TtString.h"
 #include "TtTime.h"
+#include "TtDate.h"
 
 int main(int argc, char** argv)
 {
@@ -15,6 +16,15 @@ int main(int argc, char** argv)
 
   TtString timestring(t1);
   timestring.dump();
+
+  TtDate d1;
+  d1.echo();printf("\n");
+
+  d1.set_month(3);
+  d1.echo();printf("\n");
+
+  TtString datestring(d1);
+  datestring.dump();
 
   return 0;
 }

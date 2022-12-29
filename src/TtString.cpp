@@ -71,33 +71,63 @@ TtString::TtString(TtTime t)
 
   else
   {
-    if (t.get_hour() > 9)
-    {
-      string[0] = (char) ((t.get_hour() / 10) + '0');
-      string[1] = (char) ((t.get_hour() % 10) + '0');
-    }
-
-    else
-    {
-      string[0] = '0';
-      string[1] = (char) (t.get_hour() + '0');
-    }
+    string[0] = (char) ((t.get_hour() / 10) + '0');
+    string[1] = (char) ((t.get_hour() % 10) + '0');
 
     string[2] = ' ';
     string[3] = ':';
     string[4] = ' ';
 
-    if (t.get_minute() > 9)
-    {
-      string[5] = (char) ((t.get_minute() / 10) + '0');
-      string[6] = (char) ((t.get_minute() % 10) + '0');
-    }
+    string[5] = (char) ((t.get_minute() / 10) + '0');
+    string[6] = (char) ((t.get_minute() % 10) + '0');
+  }
 
-    else
-    {
-      string[5] = '0';
-      string[6] = (char) (t.get_minute() + '0');
-    }
+  string[length] = '\0';
+}
+
+TtString::TtString(TtDate d)
+{
+  length = 14;
+  string = new char[length + 1];
+
+  if (!d.is_valid())
+  {
+    string[ 0] = 'X';
+    string[ 1] = 'X';
+    string[ 2] = 'X';
+    string[ 3] = 'X';
+    string[ 4] = ' ';
+    string[ 5] = '.';
+    string[ 6] = ' ';
+    string[ 7] = 'X';
+    string[ 8] = 'X';
+    string[ 9] = ' ';
+    string[10] = '.';
+    string[11] = ' ';
+    string[12] = 'X';
+    string[13] = 'X';
+  }
+
+  else
+  {
+    string[ 0] = (char) (( d.get_year()         / 1000) + '0');
+    string[ 1] = (char) (((d.get_year() % 1000) /  100) + '0');
+    string[ 2] = (char) (((d.get_year() %  100) /   10) + '0');
+    string[ 3] = (char) (( d.get_year() %   10)         + '0');
+
+    string[ 4] = ' ';
+    string[ 5] = '.';
+    string[ 6] = ' ';
+
+    string[ 7] = (char) ((d.get_month() / 10) + '0');
+    string[ 8] = (char) ((d.get_month() % 10) + '0');
+
+    string[ 9] = ' ';
+    string[10] = '.';
+    string[11] = ' ';
+
+    string[12] = (char) ((d.get_day() / 10) + '0');
+    string[13] = (char) ((d.get_day() % 10) + '0');
   }
 
   string[length] = '\0';

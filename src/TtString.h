@@ -11,6 +11,7 @@
 
 #include "includes.h"
 #include "TtTime.h"
+#include "TtDate.h"
 
 class TtString
 {
@@ -19,6 +20,7 @@ public:
   TtString(char c);
   TtString(int num);
   TtString(TtTime t);
+  TtString(TtDate d);
   TtString(const char *s);
   TtString(const TtString &tts);
   ~TtString();

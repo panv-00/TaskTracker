@@ -13,4 +13,17 @@
 
 #define BUFFSIZE 1000
 
+
+typedef enum
+{
+  SUN = 0,
+  MON,
+  TUE,
+  WED,
+  THU,
+  FRI,
+  SAT
+
+} DayOfWeek;
+
 #endif

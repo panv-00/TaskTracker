@@ -4,9 +4,10 @@ CFLAGS=-Wall -O3 -g
 LIBS=
 VPATH=../src
 
-OBJECTS= \
+OBJECTS=     \
 	TtString.o \
-	TtTime.o \
+	TtTime.o   \
+	TtDate.o   \
 
 DEPLIST= \
 	includes.h \
