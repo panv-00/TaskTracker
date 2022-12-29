@@ -50,22 +50,33 @@ char TtIO::read_char(const char *prompt)
   }
 
   return a;
-  
 }
 
 int  TtIO::read_number(const char *prompt)
 {
+  read_any(prompt, true);
+
   return 0;
 }
   
 void TtIO::echo()
 {
-
+  printf(START_INPUT);
+  io_line.echo();
+  move_left(io_line.get_length());
+  if (cursor_position > 0) { move_right(cursor_position); }
 }
 
 /*
  * Private Functions
  */
+
+void TtIO::reset_line(int previous_cursor_position, int line_length)
+{
+  move_left(previous_cursor_position);
+  printf("%*s", line_length, " ");
+  move_left(line_length);
+}
 
 int TtIO::getch(void)
 {
@@ -157,4 +168,83 @@ bool TtIO::is_ctrl(int a)
     default:
       return false;
   }
+}
+
+void TtIO::read_any(const char *prompt, bool only_num)
+{
+  int  a = 0;
+  int  line_length = 0;
+  int  previous_cursor_position = 0;
+  bool do_insert;
+  
+  io_line = "";
+  cursor_position = 0;
+
+  printf("%s", prompt);
+
+  while(true)
+  {
+    do_insert = true;
+
+    while (read_condition(a, only_num))
+    {
+      a = getch();
+      line_length = io_line.get_length();
+      previous_cursor_position = cursor_position;
+
+      if (a == '\n') { return; }
+
+      if ((a == BACKSPACE) && (cursor_position > 0))
+      {
+        do_insert = false;
+        cursor_position--;
+        io_line.delete_char_at(cursor_position);
+      }
+      
+      if (a == ESCAPE_CHAR)
+      {
+        a = getch();
+        if (a == ARROW_CHAR)
+        {
+          do_insert = false;
+          a = getch();
+          if (a == ARROW_LT)
+          {
+            if (cursor_position > 0) { cursor_position--; }
+          }
+          if (a == ARROW_RT)
+          {
+            if (cursor_position < io_line.get_length()) { cursor_position++; }
+          }
+        }
+      }
+    }
+
+    if (io_line.get_length() < max_length)
+    {
+      if (do_insert)
+      {
+        if (io_line.get_length() > 0)
+        {
+          reset_line(previous_cursor_position, line_length);
+        }
+
+        io_line.insert_char_at(a, cursor_position);
+        cursor_position++;
+      }
+
+      echo();
+    }
+
+    a = 0;
+  }
+}
+
+bool TtIO::read_condition(int c, bool only_num)
+{
+  return 
+    only_num ?
+    !is_num(c) && !is_ctrl(c)
+    :
+    !is_alpha(c) && !is_num(c) && !is_punct(c) && !is_ctrl(c);
 }

@@ -14,7 +14,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-#define BUFFSIZE 1000
+#define BUFFSIZE         1000
 
 #define TAB              9
 #define ESCAPE_CHAR      27
@@ -24,6 +24,7 @@
 #define ARROW_RT         67
 #define ARROW_LT         68
 #define BACKSPACE        127
+#define START_INPUT      "\r\x1b[2C"
 
 typedef enum
 {

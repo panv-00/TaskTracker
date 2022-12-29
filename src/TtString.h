@@ -32,6 +32,7 @@ public:
   void echo();
   void clean();
   void insert_char_at(char c, size_t index);
+  void delete_char_at(size_t index);
 
   const char* to_string() const { return string; };
   const size_t get_length() { return length; };

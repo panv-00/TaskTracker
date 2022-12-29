@@ -28,18 +28,24 @@ public:
   TtIO(size_t max_length);
   ~TtIO();
 
+  char read_char  (const char *prompt);
   int  read_number(const char *prompt);
-  char read_char(const char *prompt);
+  void read_string(const char *prompt);
   void echo();
 
 protected:
 
 private:
+  void reset_line(int previous_cursor_position, int line_length);
   int  getch   (     );
   bool is_alpha(int c);
   bool is_num  (int c);
   bool is_punct(int c);
   bool is_ctrl (int c);
+
+  // only_num = true -> Accept only numbers
+  void read_any(const char *prompt, bool only_num);
+  bool read_condition(int c, bool only_num);
 
   TtString io_line;
   size_t max_length;

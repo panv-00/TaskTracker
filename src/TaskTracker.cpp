@@ -18,9 +18,7 @@ int main(int argc, char** argv)
   TtIO io(24);
   int c;
 
-  c = io.read_char("Input only one character..");
-
-  printf("\nYou gave : '%c'.\n", c);
+  c = io.read_number("Input a number character..\n\r\x1b[2C");
 
   return 0;
 }

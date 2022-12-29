@@ -289,6 +289,24 @@ void TtString::insert_char_at(char c, size_t index)
   length++;
 }
 
+void TtString::delete_char_at(size_t index)
+{
+  if (index >= length || index < 0) { return; }
+
+  char *new_string = new char[length];
+
+  for (size_t i = 0; i < index; i++) { new_string[i] = string[i]; }
+  for (size_t i = index; i < length - 1; i++)
+  {
+    new_string[i] = string[i + 1];
+  }
+
+  new_string[length - 1] = '\0';
+  delete[] string;
+
+  string = new_string;
+  length--;
+}
 
 /*
  * Private Functions
