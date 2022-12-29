@@ -18,11 +18,12 @@ public:
   TtString(char c);
   TtString(int num);
   TtString(const char *s);
-  TtString(const TtString &other);
+  TtString(const TtString &tts);
   ~TtString();
 
-  TtString &operator=(const TtString &s);
-  TtString operator+(const TtString &s) const;
+  TtString &operator=(const TtString &tts);
+  TtString operator+(const TtString &tts) const;
+  bool operator==(const TtString &tts) const;
   void dump();
   void echo();
   void clean();

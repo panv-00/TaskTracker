@@ -68,12 +68,12 @@ TtString::TtString(const char *s)
   string[length] = '\0';
 }
 
-TtString::TtString(const TtString &other)
+TtString::TtString(const TtString &tts)
 {
-  length = other.length;
+  length = tts.length;
   string = new char[length + 1];
 
-  for (size_t i = 0; i < length; i++) { string[i] = other.string[i]; }
+  for (size_t i = 0; i < length; i++) { string[i] = tts.string[i]; }
   
   string[length] = '\0';
 }
@@ -83,17 +83,17 @@ TtString::~TtString()
   delete[] string;
 }
 
-TtString &TtString::operator=(const TtString &s)
+TtString &TtString::operator=(const TtString &tts)
 {
-  if (this != &s)
+  if (this != &tts)
   {
     delete[] string;
-    length = s.length;
+    length = tts.length;
     string = new char[length + 1];
     
     for (size_t i = 0; i < length; i++)
     {
-      string[i] = s.string[i];
+      string[i] = tts.string[i];
     }
 
     string[length] = '\0';
@@ -102,11 +102,11 @@ TtString &TtString::operator=(const TtString &s)
   return *this;
 }
 
-TtString TtString::operator+(const TtString &s) const
+TtString TtString::operator+(const TtString &tts) const
 {
   TtString result;
   
-  result.length = length + s.length;
+  result.length = length + tts.length;
 
   if (result.length > BUFFSIZE) { result.length = BUFFSIZE; }
 
@@ -121,12 +121,24 @@ TtString TtString::operator+(const TtString &s) const
 
   for (size_t i = 0; i < result.length - length; i++)
   {
-    result.string[i + length] = s.string[i];
+    result.string[i + length] = tts.string[i];
   }
 
   result.string[result.length] = '\0';
 
   return result;
+}
+
+bool TtString::operator==(const TtString &tts) const
+{
+  if (length != tts.length) { return false; }
+
+  for (size_t i = 0; i < length; i++)
+  {
+    if (string[i] != tts.string[i]) { return false; }
+  }
+
+  return true;
 }
 
 void TtString::dump()
