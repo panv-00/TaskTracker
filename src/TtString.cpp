@@ -156,13 +156,12 @@ void TtString::echo()
 void TtString::clean()
 {
   size_t start = 0;
-  while (is_whitespace(string[start])) { start++; }
-
   size_t end = length - 1;
+
+  while (is_whitespace(string[start])) { start++; }
   while (is_whitespace(string[end])) { end--; }
 
   size_t new_length = end - start + 1;
-
   char *new_string = new char[new_length + 1];
 
   for (size_t i = 0; i < new_length; i++) {
@@ -170,12 +169,34 @@ void TtString::clean()
   }
 
   new_string[new_length] = '\0';
-
   delete[] string;
 
   string = new_string;
   length = new_length;
 }
+
+void TtString::insert_char_at(char c, size_t index)
+{
+  if (index > length || index < 0) { return; }
+
+  char *new_string = new char[length + 2];
+
+  for (size_t i = 0; i < index; i++) { new_string[i] = string[i]; }
+
+  new_string[index] = c;
+
+  for (size_t i = index + 1; i < length + 1; i++)
+  {
+    new_string[i] = string[i - 1];
+  }
+
+  new_string[length + 1] = '\0';
+  delete[] string;
+
+  string = new_string;
+  length++;
+}
+
 
 /*
  * Private Functions

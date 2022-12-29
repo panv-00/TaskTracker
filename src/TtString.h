@@ -26,6 +26,7 @@ public:
   void dump();
   void echo();
   void clean();
+  void insert_char_at(char c, size_t index);
 
 protected:
 

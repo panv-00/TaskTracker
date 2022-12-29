@@ -9,9 +9,9 @@
 
 int main(int argc, char** argv) {
 
-  TtString a("\r\t  \n   dc.   \n ");
+  TtString a("123456");
   a.dump();
-  a.clean();
+  a.insert_char_at('A', 4);
   a.dump();
 
   return 0;
