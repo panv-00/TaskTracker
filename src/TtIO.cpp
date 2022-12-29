@@ -56,7 +56,7 @@ int  TtIO::read_number(const char *prompt)
 {
   read_any(prompt, true);
 
-  return 0;
+  return io_line.to_number();
 }
   
 void TtIO::echo()
@@ -67,6 +67,21 @@ void TtIO::echo()
   if (cursor_position > 0) { move_right(cursor_position); }
 }
 
+void TtIO::debug(bool start_debug)
+{
+  if (start_debug)
+  {
+    save_position();
+    move_down(4);
+    printf("\r");
+  }
+
+  else
+  {
+    restore_position();
+  }
+}
+
 /*
  * Private Functions
  */
@@ -74,7 +89,7 @@ void TtIO::echo()
 void TtIO::reset_line(int previous_cursor_position, int line_length)
 {
   move_left(previous_cursor_position);
-  printf("%*s", line_length, " ");
+  printf("%*s", line_length + 1, " ");
   move_left(line_length);
 }
 
@@ -222,12 +237,13 @@ void TtIO::read_any(const char *prompt, bool only_num)
 
     if (io_line.get_length() < max_length)
     {
+      if (io_line.get_length() > 0)
+      {
+        reset_line(previous_cursor_position, line_length);
+      }
+
       if (do_insert)
       {
-        if (io_line.get_length() > 0)
-        {
-          reset_line(previous_cursor_position, line_length);
-        }
 
         io_line.insert_char_at(a, cursor_position);
         cursor_position++;

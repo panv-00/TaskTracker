@@ -33,6 +33,8 @@ public:
   void read_string(const char *prompt);
   void echo();
 
+  void debug(bool start_debug);
+
 protected:
 
 private:

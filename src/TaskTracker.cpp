@@ -20,5 +20,7 @@ int main(int argc, char** argv)
 
   c = io.read_number("Input a number character..\n\r\x1b[2C");
 
+  printf("\n\n You Selected the lucky number: %10d\n", c);
+
   return 0;
 }

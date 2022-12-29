@@ -308,6 +308,21 @@ void TtString::delete_char_at(size_t index)
   length--;
 }
 
+int TtString::to_number()
+{
+  int num = 0;
+
+  for (size_t i = 0; i < length; i++)
+  {
+
+    if (string[i] < '0' || string[i] > '9') { break; }
+
+    num = 10 * num + string[i] - '0';
+  }
+
+  return num;
+}
+
 /*
  * Private Functions
  */
