@@ -7,6 +7,10 @@
 
 #include "TtTime.h"
 
+/*
+ * Public Functions
+ */
+
 TtTime::TtTime() 
 {
   time_t current_time = time(nullptr);
@@ -39,16 +43,6 @@ void TtTime::zero_all()
 {
   this->hour   = 99;
   this->minute = 99;
-}
-
-bool TtTime::is_valid(int hour, int minute)
-{
-  if (hour < 0 || hour > 23 || minute < 0 || minute > 59)
-  {
-    return false;
-  }
-
-  return true;
 }
 
 void TtTime::set_hour(int hour)
@@ -90,3 +84,18 @@ void TtTime::echo()
 
   printf("XX : XX");
 }
+
+/*
+ * Private Functions
+ */
+
+bool TtTime::is_valid(int hour, int minute)
+{
+  if (hour < 0 || hour > 23 || minute < 0 || minute > 59)
+  {
+    return false;
+  }
+
+  return true;
+}
+

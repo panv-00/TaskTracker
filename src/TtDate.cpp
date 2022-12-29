@@ -7,6 +7,10 @@
 
 #include "TtDate.h"
 
+/*
+ * Public Functions
+ */
+
 TtDate::TtDate()
 {
   time_t current_time = time(nullptr);
@@ -107,6 +111,10 @@ void TtDate::echo()
 
   printf("XXXX . XX . XX");
 }
+
+/*
+ * Private Functions
+ */
 
 bool TtDate::is_valid(int year, int month, int day)
 {

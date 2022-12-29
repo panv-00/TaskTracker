@@ -7,6 +7,10 @@
 
 #include "TtIO.h"
 
+/*
+ * Non-Class Functions
+ */
+
 void clrscr          (            ) { system("clear"            ); };
 void save_position   (            ) { printf("\x1b%d",         7); };
 void restore_position(            ) { printf("\x1b%d",         8); };
@@ -16,6 +20,10 @@ void move_down       (int count   ) { printf("\x1b[%dB",   count); };
 void move_right      (int count   ) { printf("\x1b[%dC",   count); };
 void move_left       (int count   ) { printf("\x1b[%dD",   count); };
 void move_to         (int r, int c) { printf("\x1b[%d;%df", r, c); };
+
+/*
+ * Public Functions
+ */
 
 TtIO::TtIO(size_t max_length) :
   io_line         {""},
