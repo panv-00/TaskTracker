@@ -21,7 +21,6 @@ void MoveRight      (int count   );
 void MoveLeft       (int count   );
 void MoveTo         (int r, int c);
 
-
 class TtIO
 {
 public:
@@ -32,6 +31,8 @@ public:
   int  ReadNumber(const char *prompt);
   void ReadString(const char *prompt);
   void Echo();
+  
+  const char *ToString() { return io_line.ToString(); };
 
 protected:
 

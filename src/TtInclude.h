@@ -79,4 +79,14 @@ typedef enum
 
 } DiscStatus;
 
+typedef enum
+{
+  WELCOME,         // Welcome Screen.
+  FILE_MANAGEMENT, // N-> New Workbook. O-> Open Workbook. Q-> Quit.
+  NEW_FILE,        // something for new file.
+  OPEN_FILE,       // something for open file.
+  QUIT             // Y-> Quit. Enter-> Go Back.
+
+} UserMenu;
+
 #endif

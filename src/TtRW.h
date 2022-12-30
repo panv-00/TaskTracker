@@ -20,6 +20,7 @@ public:
   void       GetCWDContents();
   int        GetFilesCount ()      { return files_count;  };
   DiscStatus GetStatus     ()      { return status;       };
+  TtString   GetParentDir  ()      { return parent_dir;   };
   TtString   GetDirFile    (int i) { return dir_files[i]; };
 
 protected:
