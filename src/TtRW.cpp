@@ -7,7 +7,6 @@
 
 #include "TtRW.h"
 
-
 TtRW::TtRW() :
   parent_dir {""},
   dir_files {0},

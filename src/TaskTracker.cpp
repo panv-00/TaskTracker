@@ -10,11 +10,17 @@
 #include "TtDate.h"
 #include "TtIO.h"
 #include "TtRW.h"
+#include "TtUI.h"
 
 int main(int argc, char** argv)
 {
   ClrScr();
   printf("Testing Directories!\n\n");
+
+  TtUI ui;
+  ui.Run();
+
+/*
 
   TtRW *rw = new TtRW();
 
@@ -55,6 +61,6 @@ int main(int argc, char** argv)
   }
 
   delete rw;
-
+*/
   return 0;
 }

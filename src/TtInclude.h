@@ -15,6 +15,12 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <signal.h>
+#include <sys/ioctl.h>
+
+//#include <sys/select.h>
+//#include <sys/types.h>
+//#include <stdint.h>
 
 #define BUFFSIZE         1000
 

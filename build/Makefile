@@ -10,6 +10,7 @@ OBJECTS=     \
 	TtDate.o   \
 	TtIO.o     \
 	TtRW.o     \
+	TtUI.o     \
 
 DEPLIST= \
 	TtInclude.h \
