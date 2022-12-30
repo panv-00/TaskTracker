@@ -58,7 +58,7 @@ TtString::TtString(TtTime t)
   length = 7;
   string = new char[length + 1];
 
-  if (!t.is_valid())
+  if (!t.IsValid())
   {
     string[0] = 'X';
     string[1] = 'X';
@@ -71,15 +71,15 @@ TtString::TtString(TtTime t)
 
   else
   {
-    string[0] = (char) ((t.get_hour() / 10) + '0');
-    string[1] = (char) ((t.get_hour() % 10) + '0');
+    string[0] = (char) ((t.GetHour() / 10) + '0');
+    string[1] = (char) ((t.GetHour() % 10) + '0');
 
     string[2] = ' ';
     string[3] = ':';
     string[4] = ' ';
 
-    string[5] = (char) ((t.get_minute() / 10) + '0');
-    string[6] = (char) ((t.get_minute() % 10) + '0');
+    string[5] = (char) ((t.GetMinute() / 10) + '0');
+    string[6] = (char) ((t.GetMinute() % 10) + '0');
   }
 
   string[length] = '\0';
@@ -90,7 +90,7 @@ TtString::TtString(TtDate d)
   length = 14;
   string = new char[length + 1];
 
-  if (!d.is_valid())
+  if (!d.IsValid())
   {
     string[ 0] = 'X';
     string[ 1] = 'X';
@@ -110,24 +110,24 @@ TtString::TtString(TtDate d)
 
   else
   {
-    string[ 0] = (char) (( d.get_year()         / 1000) + '0');
-    string[ 1] = (char) (((d.get_year() % 1000) /  100) + '0');
-    string[ 2] = (char) (((d.get_year() %  100) /   10) + '0');
-    string[ 3] = (char) (( d.get_year() %   10)         + '0');
+    string[ 0] = (char) (( d.GetYear()         / 1000) + '0');
+    string[ 1] = (char) (((d.GetYear() % 1000) /  100) + '0');
+    string[ 2] = (char) (((d.GetYear() %  100) /   10) + '0');
+    string[ 3] = (char) (( d.GetYear() %   10)         + '0');
 
     string[ 4] = ' ';
     string[ 5] = '.';
     string[ 6] = ' ';
 
-    string[ 7] = (char) ((d.get_month() / 10) + '0');
-    string[ 8] = (char) ((d.get_month() % 10) + '0');
+    string[ 7] = (char) ((d.GetMonth() / 10) + '0');
+    string[ 8] = (char) ((d.GetMonth() % 10) + '0');
 
     string[ 9] = ' ';
     string[10] = '.';
     string[11] = ' ';
 
-    string[12] = (char) ((d.get_day() / 10) + '0');
-    string[13] = (char) ((d.get_day() % 10) + '0');
+    string[12] = (char) ((d.GetDay() / 10) + '0');
+    string[13] = (char) ((d.GetDay() % 10) + '0');
   }
 
   string[length] = '\0';
@@ -135,17 +135,27 @@ TtString::TtString(TtDate d)
 
 TtString::TtString(const char *s)
 {
-  length = 0;
-  const char *str = s;
+  if (s == NULL)
+  {
+    length = 0;
+    string = new char[1];
+    string[0] = '\0';
+  }
 
-  while (*str != '\0') { length++; str++; }
-  if (length > BUFFSIZE) { length = BUFFSIZE; }
-  
-  string = new char[length + 1];
+  else
+  {
+    length = 0;
+    const char *str = s;
 
-  for (size_t i = 0; i < length; i++) { string[i] = s[i]; }
+    while (*str != '\0') { length++; str++; }
+    if (length > BUFFSIZE) { length = BUFFSIZE; }
 
-  string[length] = '\0';
+    string = new char[length + 1];
+
+    for (size_t i = 0; i < length; i++) { string[i] = s[i]; }
+
+    string[length] = '\0';
+  }
 }
 
 TtString::TtString(const TtString &tts)
@@ -221,7 +231,7 @@ bool TtString::operator==(const TtString &tts) const
   return true;
 }
 
-void TtString::dump()
+void TtString::Dump()
 {
   size_t count = 0;
   
@@ -240,18 +250,18 @@ void TtString::dump()
   }
 }
 
-void TtString::echo()
+void TtString::Echo()
 {
   printf("%s", string);
 }
 
-void TtString::clean()
+void TtString::Clean()
 {
   size_t start = 0;
   size_t end = length - 1;
 
-  while (is_whitespace(string[start])) { start++; }
-  while (is_whitespace(string[end])) { end--; }
+  while (IsWhitespace(string[start])) { start++; }
+  while (IsWhitespace(string[end]  )) { end--;   }
 
   size_t new_length = end - start + 1;
   char *new_string = new char[new_length + 1];
@@ -267,7 +277,7 @@ void TtString::clean()
   length = new_length;
 }
 
-void TtString::insert_char_at(char c, size_t index)
+void TtString::InsertCharAt(char c, size_t index)
 {
   if (index > length || index < 0) { return; }
 
@@ -289,7 +299,7 @@ void TtString::insert_char_at(char c, size_t index)
   length++;
 }
 
-void TtString::delete_char_at(size_t index)
+void TtString::DeleteCharAt(size_t index)
 {
   if (index >= length || index < 0) { return; }
 
@@ -308,7 +318,7 @@ void TtString::delete_char_at(size_t index)
   length--;
 }
 
-int TtString::to_number()
+int TtString::ToNumber()
 {
   int num = 0;
 
@@ -327,7 +337,7 @@ int TtString::to_number()
  * Private Functions
  */
 
-bool TtString::is_whitespace(char c)
+bool TtString::IsWhitespace(char c)
 {
   return c == ' ' || c == '\n' || c == '\r' || c == '\t';
 }

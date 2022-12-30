@@ -26,9 +26,9 @@ TtDate::TtDate()
 
 TtDate::TtDate(int year, int month, int day)
 {
-  zero_all();
+  ZeroAll();
 
-  if (is_valid(year, month, day))
+  if (IsValid(year, month, day))
   {
     this->year  = year;
     this->month = month;
@@ -41,49 +41,49 @@ TtDate::~TtDate()
 
 }
 
-void TtDate::zero_all()
+void TtDate::ZeroAll()
 {
   this->year  = 9999;
   this->month = 99;
   this->day   = 99;
 }
 
-void TtDate::set_year(int year)
+void TtDate::SetYear(int year)
 {
   if (year < 1) { return; }
 
   if (this->month == 99 || this->day == 99
-      || is_valid(year, this->month, this->day))
+      || IsValid(year, this->month, this->day))
   {
     this->year = year;
   }
 }
 
-void TtDate::set_month(int month)
+void TtDate::SetMonth(int month)
 {
   if (month < 1 || month > 12) { return; }
 
   if (this->year == 9999 || this->day == 99
-      || is_valid(this->year, month, this->day))
+      || IsValid(this->year, month, this->day))
   {
     this->month = month;
   }
 }
 
-void TtDate::set_day(int day)
+void TtDate::SetDay(int day)
 {
   if (day < 1 || day > 31) { return; }
 
   if (this->month == 99 || this->year == 99
-      || is_valid(this->year, this->month, day))
+      || IsValid(this->year, this->month, day))
   {
     this->day = day;
   }
 }
 
-void TtDate::set_date(int year, int month, int day)
+void TtDate::SetDate(int year, int month, int day)
 {
-  if (is_valid(year, month, day))
+  if (IsValid(year, month, day))
   {
     this->year  = year;
     this->month = month;
@@ -91,7 +91,7 @@ void TtDate::set_date(int year, int month, int day)
   }
 }
 
-DayOfWeek TtDate::get_day_of_week()
+DayOfWeek TtDate::GetDayOfWeek()
 {
   int d = day;
   int m = month;
@@ -101,9 +101,9 @@ DayOfWeek TtDate::get_day_of_week()
     ((d += m < 3 ? y-- : y - 2, 23*m/9 + d + 4 + y/4- y/100 + y/400)%7);
 }
 
-void TtDate::echo()
+void TtDate::Echo()
 {
-  if (is_valid(year, month, day))
+  if (IsValid(year, month, day))
   {
     printf("%04d . %02d . %02d", year, month, day);
     return;
@@ -116,7 +116,7 @@ void TtDate::echo()
  * Private Functions
  */
 
-bool TtDate::is_valid(int year, int month, int day)
+bool TtDate::IsValid(int year, int month, int day)
 {
   if (year < 1 || month < 1 || month > 12 || day < 1 || day > 31)
   {

@@ -25,9 +25,9 @@ TtTime::TtTime()
 
 TtTime::TtTime(int hour, int minute)
 {
-  zero_all();
+  ZeroAll();
   
-  if (is_valid(hour, minute))
+  if (IsValid(hour, minute))
   {
     this->hour   = hour;
     this->minute = minute;
@@ -39,44 +39,44 @@ TtTime::~TtTime()
 
 }
 
-void TtTime::zero_all()
+void TtTime::ZeroAll()
 {
   this->hour   = 99;
   this->minute = 99;
 }
 
-void TtTime::set_hour(int hour)
+void TtTime::SetHour(int hour)
 {
   if (hour < 0 || hour > 23) { return; }
   
-  if (this->minute == 99 || is_valid(hour, this->minute))
+  if (this->minute == 99 || IsValid(hour, this->minute))
   {
     this->hour = hour;
   }
 }
 
-void TtTime::set_minute(int minute)
+void TtTime::SetMinute(int minute)
 {
   if (minute < 0 || minute > 59) { return; }
 
-  if (this->hour == 99 || is_valid(this->hour, minute))
+  if (this->hour == 99 || IsValid(this->hour, minute))
   {
     this->minute = minute;
   }
 }
 
-void TtTime::set_time(int hour, int minute)
+void TtTime::SetTime(int hour, int minute)
 {
-  if (is_valid(hour, minute))
+  if (IsValid(hour, minute))
   {
     this->hour   = hour;
     this->minute = minute;
   }
 }
 
-void TtTime::echo()
+void TtTime::Echo()
 {
-  if (is_valid(hour, minute))
+  if (IsValid(hour, minute))
   {
     printf("%02d : %02d", hour, minute);
     return;
@@ -89,7 +89,7 @@ void TtTime::echo()
  * Private Functions
  */
 
-bool TtTime::is_valid(int hour, int minute)
+bool TtTime::IsValid(int hour, int minute)
 {
   if (hour < 0 || hour > 23 || minute < 0 || minute > 59)
   {

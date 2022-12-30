@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <termios.h>
 #include <unistd.h>
+#include <dirent.h>
+#include <sys/stat.h>
 
 #define BUFFSIZE         1000
 
@@ -60,5 +62,15 @@ typedef enum
   CLR_WHITE_BG
 
 } ColorCode;
+
+typedef enum
+{
+  HOME_ENV_ERROR = -3,
+  CONFIG_CREATE_ERROR,
+  TT_CREATE_ERROR,
+  DISC_STATUS_HEALTHY,
+  DISC_STATUS_UNKNOWN
+
+} DiscStatus;
 
 #endif

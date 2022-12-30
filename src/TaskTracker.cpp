@@ -9,19 +9,52 @@
 #include "TtTime.h"
 #include "TtDate.h"
 #include "TtIO.h"
+#include "TtRW.h"
 
 int main(int argc, char** argv)
 {
-  clrscr();
-  printf("Testing TtIO!\n\n");
+  ClrScr();
+  printf("Testing Directories!\n\n");
 
-  TtIO io(24);
+  TtRW *rw = new TtRW();
 
-  io.read_string("Input a String..\n\r\x1b[2C");
+  rw->GetCWDContents();
 
-  printf("\n\nYou Selected the lucky text: \n");
-  io.echo();
-  printf("\n");
+  switch(rw->GetStatus())
+  {
+    case HOME_ENV_ERROR:
+      printf("[Error]   : $HOME environment variable not set.\n");
+      break;
+
+    case CONFIG_CREATE_ERROR:
+      printf("[WARNING] : ~/.config does not exist.\n");
+      printf("            Trying to create.\n");
+      printf("[Error]   : Cannot Create ~/.config\n");
+      break;
+
+    case TT_CREATE_ERROR:
+      printf("[WARNING] : data directory does not exist.\n");
+      printf("            Trying to create @ ~/.config/TaskTracker/\n");
+      printf("[Error]   : Cannot create data directory.\n");
+      break;
+
+    case DISC_STATUS_HEALTHY:
+      printf("\nTotal Files: %d\n", rw->GetFilesCount());
+      printf("Directory Listing:\n");
+      printf("------------------\n");
+      for (int i = 0; i < rw->GetFilesCount(); i++)
+      {
+        printf("[  %2d ] --> %s\n", i, rw->GetDirFile(i).ToString());
+      }
+      break;
+
+    case DISC_STATUS_UNKNOWN:
+      printf("[WARNING] : unexpected behavior.\n");
+      printf("            App needs to close now.\n");
+      break;
+  }
+
+  delete rw;
 
   return 0;
 }

@@ -11,15 +11,15 @@
 #include "TtInclude.h"
 #include "TtString.h"
 
-void clrscr          (            );
-void save_position   (            );
-void restore_position(            );
-void set_color       (ColorCode cc);
-void move_up         (int count   );
-void move_down       (int count   );
-void move_right      (int count   );
-void move_left       (int count   );
-void move_to         (int r, int c);
+void ClrScr         (            );
+void SavePosition   (            );
+void RestorePosition(            );
+void SetColor       (ColorCode cc);
+void MoveUp         (int count   );
+void MoveDown       (int count   );
+void MoveRight      (int count   );
+void MoveLeft       (int count   );
+void MoveTo         (int r, int c);
 
 
 class TtIO
@@ -28,24 +28,24 @@ public:
   TtIO(size_t max_length);
   ~TtIO();
 
-  char read_char  (const char *prompt);
-  int  read_number(const char *prompt);
-  void read_string(const char *prompt);
-  void echo();
+  char ReadChar  (const char *prompt);
+  int  ReadNumber(const char *prompt);
+  void ReadString(const char *prompt);
+  void Echo();
 
 protected:
 
 private:
-  void reset_line(int previous_cursor_position, int line_length);
-  int  getch   (     );
-  bool is_alpha(int c);
-  bool is_num  (int c);
-  bool is_punct(int c);
-  bool is_ctrl (int c);
+  void ResetLine(int previous_cursor_position, int line_length);
+  int  Getch  (     );
+  bool IsAlpha(int c);
+  bool IsNum  (int c);
+  bool IsPunct(int c);
+  bool IsCtrl (int c);
 
   // only_num = true -> Accept only numbers
-  void read_any(const char *prompt, bool only_num);
-  bool read_condition(int c, bool only_num);
+  void ReadAny(const char *prompt, bool only_num);
+  bool ReadCondition(int c, bool only_num);
 
   TtString io_line;
   size_t max_length;

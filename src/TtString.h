@@ -28,20 +28,20 @@ public:
   TtString &operator=(const TtString &tts);
   TtString operator+(const TtString &tts) const;
   bool operator==(const TtString &tts) const;
-  void dump();
-  void echo();
-  void clean();
-  void insert_char_at(char c, size_t index);
-  void delete_char_at(size_t index);
-  int  to_number();
+  void Dump();
+  void Echo();
+  void Clean();
+  void InsertCharAt(char c, size_t index);
+  void DeleteCharAt(size_t index);
+  int  ToNumber();
 
-  const char* to_string() const { return string; };
-  const size_t get_length() { return length; };
+  const char* ToString() const { return string; };
+  const size_t GetLength() { return length; };
 
 protected:
 
 private:
-  bool is_whitespace(char c);
+  bool IsWhitespace(char c);
   
   char *string;
   size_t length;

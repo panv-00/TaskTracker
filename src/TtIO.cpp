@@ -11,15 +11,15 @@
  * Non-Class Functions
  */
 
-void clrscr          (            ) { system("clear"            ); };
-void save_position   (            ) { printf("\x1b%d",         7); };
-void restore_position(            ) { printf("\x1b%d",         8); };
-void set_color       (ColorCode cc) { printf("\x1b[%dm",      cc); };
-void move_up         (int count   ) { printf("\x1b[%dA",   count); };
-void move_down       (int count   ) { printf("\x1b[%dB",   count); };
-void move_right      (int count   ) { printf("\x1b[%dC",   count); };
-void move_left       (int count   ) { printf("\x1b[%dD",   count); };
-void move_to         (int r, int c) { printf("\x1b[%d;%df", r, c); };
+void ClrScr         (            ) { system("clear"            ); };
+void SavePosition   (            ) { printf("\x1b%d",         7); };
+void RestorePosition(            ) { printf("\x1b%d",         8); };
+void SetColor       (ColorCode cc) { printf("\x1b[%dm",      cc); };
+void MoveUp         (int count   ) { printf("\x1b[%dA",   count); };
+void MoveDown       (int count   ) { printf("\x1b[%dB",   count); };
+void MoveRight      (int count   ) { printf("\x1b[%dC",   count); };
+void MoveLeft       (int count   ) { printf("\x1b[%dD",   count); };
+void MoveTo         (int r, int c) { printf("\x1b[%d;%df", r, c); };
 
 /*
  * Public Functions
@@ -38,53 +38,54 @@ TtIO::~TtIO()
 
 }
 
-char TtIO::read_char(const char *prompt)
+char TtIO::ReadChar(const char *prompt)
 {
   int a = 0;
 
   printf("%s", prompt);
 
-  while (!is_alpha(a) && !is_num(a) && !is_punct(a) && !is_ctrl(a))
+  while (!IsAlpha(a) && !IsNum(a) && !IsPunct(a) && !IsCtrl(a))
   {
-    a = getch();
+    a = Getch();
   }
 
   return a;
 }
 
-int  TtIO::read_number(const char *prompt)
+int  TtIO::ReadNumber(const char *prompt)
 {
-  read_any(prompt, true);
-  io_line.clean();
+  ReadAny(prompt, true);
+  io_line.Clean();
 
-  return io_line.to_number();
+  return io_line.ToNumber();
 }
 
-void TtIO::read_string(const char *prompt)
+void TtIO::ReadString(const char *prompt)
 {
-  read_any(prompt, false);
+  ReadAny(prompt, false);
 }
   
-void TtIO::echo()
+void TtIO::Echo()
 {
   printf(START_INPUT);
-  io_line.echo();
-  move_left(io_line.get_length());
-  if (cursor_position > 0) { move_right(cursor_position); }
+  io_line.Echo();
+  MoveLeft(io_line.GetLength());
+  
+  if (cursor_position > 0) { MoveRight(cursor_position); }
 }
 
 /*
  * Private Functions
  */
 
-void TtIO::reset_line(int previous_cursor_position, int line_length)
+void TtIO::ResetLine(int previous_cursor_position, int line_length)
 {
-  move_left(previous_cursor_position);
+  MoveLeft(previous_cursor_position);
   printf("%*s", line_length + 1, " ");
-  move_left(line_length);
+  MoveLeft(line_length);
 }
 
-int TtIO::getch(void)
+int TtIO::Getch(void)
 {
   struct termios oldt, newt;
   int ch;
@@ -101,19 +102,19 @@ int TtIO::getch(void)
   return ch;
 }
 
-bool TtIO::is_alpha(int c)
+bool TtIO::IsAlpha(int c)
 {
   if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) return true;
   return false;
 }
 
-bool TtIO::is_num(int c)
+bool TtIO::IsNum(int c)
 {
   if (c >= '0' && c <= '9') return true;
   return false;
 }
 
-bool TtIO::is_punct(int c)
+bool TtIO::IsPunct(int c)
 {
   switch (c)
   {
@@ -156,9 +157,9 @@ bool TtIO::is_punct(int c)
   }
 }
 
-bool TtIO::is_ctrl(int a)
+bool TtIO::IsCtrl(int c)
 {
-  switch (a)
+  switch (c)
   {
     case ' ':
     case '\n':
@@ -176,7 +177,7 @@ bool TtIO::is_ctrl(int a)
   }
 }
 
-void TtIO::read_any(const char *prompt, bool only_num)
+void TtIO::ReadAny(const char *prompt, bool only_num)
 {
   int  a = 0;
   int  line_length = 0;
@@ -192,10 +193,10 @@ void TtIO::read_any(const char *prompt, bool only_num)
   {
     do_insert = true;
 
-    while (read_condition(a, only_num))
+    while (ReadCondition(a, only_num))
     {
-      a = getch();
-      line_length = io_line.get_length();
+      a = Getch();
+      line_length = io_line.GetLength();
       previous_cursor_position = cursor_position;
 
       if (a == '\n') { return; }
@@ -204,54 +205,54 @@ void TtIO::read_any(const char *prompt, bool only_num)
       {
         do_insert = false;
         cursor_position--;
-        io_line.delete_char_at(cursor_position);
+        io_line.DeleteCharAt(cursor_position);
       }
       
       if (a == ESCAPE_CHAR)
       {
-        a = getch();
+        a = Getch();
         if (a == ARROW_CHAR)
         {
           do_insert = false;
-          a = getch();
+          a = Getch();
           if (a == ARROW_LT)
           {
             if (cursor_position > 0) { cursor_position--; }
           }
           if (a == ARROW_RT)
           {
-            if (cursor_position < io_line.get_length()) { cursor_position++; }
+            if (cursor_position < io_line.GetLength()) { cursor_position++; }
           }
         }
       }
     }
 
-    if (io_line.get_length() < max_length)
+    if (io_line.GetLength() < max_length)
     {
-      if (io_line.get_length() > 0)
+      if (io_line.GetLength() > 0)
       {
-        reset_line(previous_cursor_position, line_length);
+        ResetLine(previous_cursor_position, line_length);
       }
 
       if (do_insert)
       {
 
-        io_line.insert_char_at(a, cursor_position);
+        io_line.InsertCharAt(a, cursor_position);
         cursor_position++;
       }
 
-      echo();
+      Echo();
     }
 
     a = 0;
   }
 }
 
-bool TtIO::read_condition(int c, bool only_num)
+bool TtIO::ReadCondition(int c, bool only_num)
 {
   return 
     only_num ?
-    !is_num(c) && !is_ctrl(c)
+    !IsNum(c) && !IsCtrl(c)
     :
-    !is_alpha(c) && !is_num(c) && !is_punct(c) && !is_ctrl(c);
+    !IsAlpha(c) && !IsNum(c) && !IsPunct(c) && !IsCtrl(c);
 }
